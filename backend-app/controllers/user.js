@@ -1,6 +1,18 @@
 const bcrypt = require('bcrypt')
 const { generate } = require('../helpers/token')
 
+async function register(login, password) {
+	if (!password) {
+		throw new Error('Password is empty')
+	}
+	const passwordHash = await bcrypt.hash(password, 10)
+
+	const user = await User.create({ login, password: passwordHash })
+	const token = generate({ id: user.id })
+
+	return { user, token }
+}
+
 // login
 async function login(email, password) {
 	const user = await User.findOne({ email }) // Ищу юзера
@@ -19,10 +31,7 @@ async function login(email, password) {
 	return { token, user }
 }
 
-function getUsers() {
-	return User.find()
-}
-
 module.exports = {
 	login,
+	register,
 }

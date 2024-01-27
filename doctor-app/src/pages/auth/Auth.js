@@ -2,12 +2,13 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector, useStore } from 'react-redux'
-import { Navigate } from 'react-router-dom'
+import { Link, Navigate } from 'react-router-dom'
 import * as yup from 'yup'
 import { setUser } from '../../actions'
 import { ROLE } from '../../constants'
 import { selectUserRole } from '../../selectors'
 import { request } from '../../utilts/request'
+
 const validationSchema = yup.object().shape({
 	email: yup
 		.string()
@@ -68,7 +69,7 @@ export const Auth = () => {
 	}
 
 	return (
-		<div className='container  d-flex align-items-center justify-content-center vh-100'>
+		<div className='container d-flex align-items-center justify-content-center vh-100'>
 			<div className='border p-4 rounded'>
 				<form onSubmit={handleSubmit(onSubmit)}>
 					<div className='mb-3'>
@@ -100,10 +101,13 @@ export const Auth = () => {
 					<button
 						type='submit'
 						disabled={!!formError}
-						className='btn btn-primary'
+						className='btn btn-primary me-2'
 					>
 						Войти
 					</button>
+					<Link to='/register' className='btn btn-secondary'>
+						Зарегистрироваться
+					</Link>
 					{errorMessage && <div className='text-danger'>{errorMessage}</div>}
 				</form>
 			</div>

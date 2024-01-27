@@ -4,6 +4,7 @@ import { Route, Routes } from 'react-router-dom'
 import { setUser } from './actions'
 import { Header } from './components/header/Header'
 import { Auth, Form, Table } from './pages'
+import { Registr } from './pages/register/Register'
 function App() {
 	const dispatch = useDispatch()
 	useLayoutEffect(() => {
@@ -23,6 +24,7 @@ function App() {
 			<Header />
 			<Routes>
 				<Route path='/' element={<Auth />} />
+				<Route path='/register' element={<Registr />} />
 				<Route path='/form' element={<Form />} />
 				<Route path='/table' element={<Table />} />
 			</Routes>
